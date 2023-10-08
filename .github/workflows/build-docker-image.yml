@@ -1,6 +1,7 @@
 name: build and push image to aliyun
 on:
-  push:
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
