@@ -1,0 +1,39 @@
+name: build and push image to aliyun
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+    - name: Install dependencies
+      run: pnpm install
+    - name: client build
+      run: |
+      cd ${{ github.workspace }}/packages/ui/certd-client
+      pnpm run build
+    - name: server build
+      run: |
+      cd ${{ github.workspace }}/packages/ui/certd-server
+      pnpm run build
+    - name: move to app folder
+      run: |
+      mkdir -p ${{ github.workspace }}/app/public
+      cp -rpf ${{ github.workspace }}/packages/ui/certd-server/* ${{ github.workspace }}/app
+      cp -rpf ${{ github.workspace }}/packages/ui/certd-client/dist/* ${{ github.workspace }}/app/public
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v3
+      with:
+        name: certd
+        path: '${{ github.workspace }}/app/*'
