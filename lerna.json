@@ -3,11 +3,10 @@
   "useWorkspaces": true,
   "command": {
     "bootstrap": {
-      "npmClientArgs": [
-        "--no-package-lock"
-      ]
+      "npmClientArgs": ["--no-package-lock"]
     }
   },
+  "packages": ["packages/*"],
   "npmClient": "pnpm",
   "version": "1.1.6"
 }
