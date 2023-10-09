@@ -49,7 +49,7 @@ jobs:
         cp -rpf ${{ github.workspace }}/packages/ui/certd-server ${{ github.workspace }}/app
         mkdir -p ${{ github.workspace }}/app/public
         cp -rpf ${{ github.workspace }}/packages/ui/certd-client/dist/* ${{ github.workspace }}/app/public
-        tar -czf app.tgz ${{ github.workspace }}/app
+        tar -czf app.tgz app
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
       with:
@@ -86,10 +86,10 @@ jobs:
             mkdir -p /home/deploy/certd/app
           # scp from local to remote
           scp: |
-            * => /home/deploy/certd/app/
+            * => /home/deploy/certd/tmp
           # execute post-commands after scp
           last_ssh: |
-            cd /home/deploy/certd
-            ls -l /home/deploy/certd
+            cd /home/deploy/certd/tmp
+            tar -xzf app.tgz
 
 
