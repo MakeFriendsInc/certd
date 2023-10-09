@@ -32,11 +32,11 @@ jobs:
         pnpm run build
     - name: move to app folder
       run: |
+        cp -rpf ${{ github.workspace }}/packages/ui/certd-server ${{ github.workspace }}/app
         mkdir -p ${{ github.workspace }}/app/public
-        cp -rpf ${{ github.workspace }}/packages/ui/certd-server/* ${{ github.workspace }}/app
         cp -rpf ${{ github.workspace }}/packages/ui/certd-client/dist/* ${{ github.workspace }}/app/public
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
       with:
         name: certd
-        path: '${{ github.workspace }}/app/*'
+        path: '${{ github.workspace }}/app'
