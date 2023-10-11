@@ -44,6 +44,7 @@ jobs:
       run: |
         cd ${{ github.workspace }}/packages/ui/certd-server
         pnpm run build
+        rm -rf ./node_modules
     - name: move to app folder
       run: |
         cp -rpf ${{ github.workspace }}/packages/ui/certd-server ${{ github.workspace }}/app
