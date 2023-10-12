@@ -82,18 +82,16 @@ jobs:
           connect_timeout: 30s
           # execute pre-commands before scp
           first_ssh: |
-            echo "${{ github.sha }}" > /home/deploy/certd/github.sha
-            rm -rf /home/deploy/certd/app
-            mkdir -p /home/deploy/certd/app
+            echo "${{ github.sha }}" > /home/deploy/projects/certd/github.sha
+            rm -rf /home/deploy/projects/certd/app
+            mkdir -p /home/deploy/projects/certd/app
           # scp from local to remote
           scp: |
-            * => /home/deploy/certd/
+            * => /home/deploy/projects/certd/
           # execute post-commands after scp
           last_ssh: |
-            cd /home/deploy/certd
+            cd /home/deploy/projects/certd
             tar -xzf certd.tgz
             sudo docker compose build
-            sudo docker compose down
-            sudo docker compose up
 
 
