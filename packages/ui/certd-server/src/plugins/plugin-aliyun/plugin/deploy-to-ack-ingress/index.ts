@@ -12,7 +12,7 @@ import { ROAClient } from '@alicloud/pop-core';
 import { AliyunAccess } from '../../access';
 import { K8sClient } from '@certd/plugin-util';
 import { appendTimeSuffix } from '../../utils/index';
-import { CertInfo } from '../../../plugin-cert';
+import { CertInfo } from '@certd/plugin-cert';
 
 @IsTaskPlugin({
   name: 'DeployCertToAliyunAckIngress',

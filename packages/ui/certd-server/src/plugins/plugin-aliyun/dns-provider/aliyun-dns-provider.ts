@@ -5,7 +5,7 @@ import {
   IDnsProvider,
   IsDnsProvider,
   RemoveRecordOptions,
-} from '../../plugin-cert';
+} from '@certd/plugin-cert';
 import { Autowire, ILogger } from '@certd/pipeline';
 import { AliyunAccess } from '../access';
 
