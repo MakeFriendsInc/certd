@@ -23,8 +23,11 @@
   "dependencies": {
     "@alicloud/pop-core": "^1.7.10",
     "@certd/acme-client": "^1.1.6",
-    "@certd/plugin-host": "^1.1.6",
     "@certd/pipeline": "^1.1.6",
+    "@certd/plugin-cert": "workspace:^1.1.6",
+    "@certd/plugin-host": "workspace:^",
+    "@certd/plugin-huawei": "workspace:^1.1.6",
+    "@certd/plugin-tencent": "workspace:^1.1.6",
     "@certd/plugin-util": "^1.1.6",
     "@koa/cors": "^3.4.3",
     "@midwayjs/bootstrap": "^3.9.1",

@@ -1,5 +1,5 @@
 import '../plugin-aliyun';
-import '../plugin-cert';
+import '@certd/plugin-cert';
 import '@certd/plugin-host';
-import '../plugin-huawei';
-import '../plugin-tencent';
+import '@certd/plugin-huawei';
+import '@certd/plugin-tencent';
