@@ -23,7 +23,7 @@ export default class Client {
       accessKeySecret: accessKeySecret,
     });
     // See https://api.alibabacloud.com/product/Alb.
-    config.endpoint = 'alb.cn-qingdao.aliyuncs.com';
+    config.endpoint = 'https://alb.us-west-1.aliyuncs.com';
     return new Alb20200616(config);
   }
 
