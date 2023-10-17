@@ -30,7 +30,6 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
 
   @TaskInput({
     title: '负载均衡监听id',
-    required: true,
   })
   listenerId!: string;
 
@@ -109,22 +108,26 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
     //output
     this.aliyunCertId = ret.CertId;
 
-    const lsRequestOption = {
-      method: 'POST',
-    };
+    if (this.listenerId) {
+      const lsRequestOption = {
+        method: 'POST',
+      };
 
-    const lsParams = {
-      listenerId: this.listenerId,
-      certificates: [ret.CertId],
-    };
+      const lsParams = {
+        listenerId: this.listenerId,
+        certificates: [ret.CertId],
+      };
 
-    const lsRet = (await client.request(
-      'AssociateAdditionalCertificatesWithListener',
-      lsParams,
-      lsRequestOption
-    )) as any;
-    checkRet(lsRet);
-    this.logger.info('关联扩展证书和监听成功');
+      const newClient = this.getClient(access);
+
+      const lsRet = (await newClient.request(
+        'AssociateAdditionalCertificatesWithListener',
+        lsParams,
+        lsRequestOption
+      )) as any;
+      checkRet(lsRet);
+      this.logger.info('关联扩展证书和监听成功');
+    }
   }
 
   getClient(aliyunProvider: AliyunAccess) {
@@ -133,6 +136,15 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
       accessKeySecret: aliyunProvider.accessKeySecret,
       endpoint: 'https://cas.aliyuncs.com',
       apiVersion: '2018-07-13',
+    });
+  }
+
+  getNewClient(aliyunProvider: AliyunAccess) {
+    return new Core({
+      accessKeyId: aliyunProvider.accessKeyId,
+      accessKeySecret: aliyunProvider.accessKeySecret,
+      endpoint: 'https://alb.us-west-1.aliyuncs.com',
+      apiVersion: '2020-06-16',
     });
   }
 }
