@@ -129,7 +129,12 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
       });
 
       const newParams = {
-        ListenerId: 'list',
+        ListenerId: this.listenerId,
+        Certificates: [
+          {
+            CertificateId: ret.CertId,
+          },
+        ],
       };
 
       const newRequestOption = {
