@@ -119,8 +119,6 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
       //   this.logger
       // );
 
-      const logger = this.logger;
-
       const newAccess = (await this.accessService.getById(
         this.accessId
       )) as AliyunAccess;
@@ -146,23 +144,16 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
         formatParams: false,
       };
 
-      logger.info('AssociateAdditionalCertificatesWithListener启动');
+      this.logger.info('AssociateAdditionalCertificatesWithListener启动');
 
-      newClient
-        .request(
-          'AssociateAdditionalCertificatesWithListener',
-          newParams,
-          newRequestOption
-        )
-        .then(
-          result => {
-            logger.info('关联扩展证书和监听成功', result);
-          },
-          ex => {
-            logger.info('关联扩展证书和监听失败', ex);
-            checkRet(ex);
-          }
-        );
+      const res = await newClient.request(
+        'AssociateAdditionalCertificatesWithListener',
+        newParams,
+        newRequestOption
+      );
+
+      checkRet(res);
+      this.logger.info('关联扩展证书和监听成功', ret.CertId);
     }
   }
 
