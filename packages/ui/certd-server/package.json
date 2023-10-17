@@ -21,7 +21,10 @@
     "mig": "typeorm migration:create -n name"
   },
   "dependencies": {
+    "@alicloud/alb20200616": "^1.0.2",
+    "@alicloud/openapi-client": "^0.4.0",
     "@alicloud/pop-core": "^1.7.10",
+    "@alicloud/tea-util": "^1.4.7",
     "@certd/acme-client": "^1.1.6",
     "@certd/pipeline": "^1.1.6",
     "@certd/plugin-cert": "^1.1.6",

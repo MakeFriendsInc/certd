@@ -10,6 +10,7 @@ import Core from '@alicloud/pop-core';
 import { AliyunAccess } from '../../access';
 import { appendTimeSuffix, checkRet, ZoneOptions } from '../../utils';
 import { Logger } from 'log4js';
+import ListenerClass from './ListenerClass';
 
 @IsTaskPlugin({
   name: 'uploadCertToAliyun',
@@ -110,24 +111,12 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
 
     this.logger.info('listenerId', this.listenerId);
     if (this.listenerId) {
-      const lsRequestOption = {
-        method: 'POST',
-      };
-
-      const lsParams = {
-        listenerId: this.listenerId,
-        certificates: [ret.CertId],
-      };
-
-      const newClient = this.getClient(access);
-
-      const lsRet = (await newClient.request(
-        'AssociateAdditionalCertificatesWithListener',
-        lsParams,
-        lsRequestOption
-      )) as any;
-      checkRet(lsRet);
-      this.logger.info('关联扩展证书和监听成功');
+      ListenerClass.main(
+        access.accessKeyId,
+        access.accessKeySecret,
+        ret.CertId,
+        this.listenerId
+      );
     }
   }
 
@@ -137,15 +126,6 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
       accessKeySecret: aliyunProvider.accessKeySecret,
       endpoint: 'https://cas.aliyuncs.com',
       apiVersion: '2018-07-13',
-    });
-  }
-
-  getNewClient(aliyunProvider: AliyunAccess) {
-    return new Core({
-      accessKeyId: aliyunProvider.accessKeyId,
-      accessKeySecret: aliyunProvider.accessKeySecret,
-      endpoint: 'https://alb.cn-qingdao.aliyuncs.com',
-      apiVersion: '2020-06-16',
     });
   }
 }
