@@ -10,7 +10,6 @@ import Core from '@alicloud/pop-core';
 import { AliyunAccess } from '../../access';
 import { appendTimeSuffix, checkRet, ZoneOptions } from '../../utils';
 import { Logger } from 'log4js';
-// import ListenerClass from './ListenerClass';
 
 @IsTaskPlugin({
   name: 'uploadCertToAliyun',
@@ -111,14 +110,6 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
 
     this.logger.info('listenerId', this.listenerId);
     if (this.listenerId) {
-      // ListenerClass.main(
-      //   access.accessKeyId,
-      //   access.accessKeySecret,
-      //   ret.CertId,
-      //   this.listenerId,
-      //   this.logger
-      // );
-
       const newAccess = (await this.accessService.getById(
         this.accessId
       )) as AliyunAccess;
@@ -151,6 +142,8 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
         newParams,
         newRequestOption
       );
+
+      this.logger.info('关联扩展证书和监听res', res);
 
       checkRet(res);
       this.logger.info('关联扩展证书和监听成功', ret.CertId);
