@@ -111,12 +111,17 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
 
     this.logger.info('listenerId', this.listenerId);
     if (this.listenerId) {
-      ListenerClass.main(
-        access.accessKeyId,
-        access.accessKeySecret,
-        ret.CertId,
-        this.listenerId
-      );
+      try {
+        ListenerClass.main(
+          access.accessKeyId,
+          access.accessKeySecret,
+          ret.CertId,
+          this.listenerId
+        );
+        this.logger.info('关联扩展证书和监听成功');
+      } catch (error) {
+        throw new Error('执行失败：' + error.Message);
+      }
     }
   }
 

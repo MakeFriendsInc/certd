@@ -57,7 +57,6 @@ export default class Client {
         );
 
       checkRet(res);
-      console.log('关联扩展证书和监听成功');
     } catch (error) {
       // Print error if needed.
       Util.assertAsString(error.message);
