@@ -111,13 +111,49 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
 
     this.logger.info('listenerId', this.listenerId);
     if (this.listenerId) {
-      ListenerClass.main(
-        access.accessKeyId,
-        access.accessKeySecret,
-        ret.CertId,
-        this.listenerId,
-        this.logger
-      );
+      // ListenerClass.main(
+      //   access.accessKeyId,
+      //   access.accessKeySecret,
+      //   ret.CertId,
+      //   this.listenerId,
+      //   this.logger
+      // );
+
+      const logger = this.logger;
+
+      const newClient = new Core({
+        accessKeyId: access.accessKeyId,
+        accessKeySecret: access.accessKeySecret,
+        endpoint: 'https://alb.us-west-1.aliyuncs.com',
+        apiVersion: '2020-06-16',
+      });
+
+      const newParams = {
+        ListenerId: 'list',
+      };
+
+      const newRequestOption = {
+        method: 'POST',
+        formatParams: false,
+      };
+
+      logger.info('AssociateAdditionalCertificatesWithListener启动');
+
+      newClient
+        .request(
+          'AssociateAdditionalCertificatesWithListener',
+          newParams,
+          newRequestOption
+        )
+        .then(
+          result => {
+            logger.info('关联扩展证书和监听成功', result);
+          },
+          ex => {
+            logger.info('关联扩展证书和监听失败', ex);
+            checkRet(ex);
+          }
+        );
     }
   }
 
