@@ -108,6 +108,7 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
     //output
     this.aliyunCertId = ret.CertId;
 
+    this.logger.info('listenerId', this.listenerId);
     if (this.listenerId) {
       const lsRequestOption = {
         method: 'POST',
@@ -143,7 +144,7 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
     return new Core({
       accessKeyId: aliyunProvider.accessKeyId,
       accessKeySecret: aliyunProvider.accessKeySecret,
-      endpoint: 'https://alb.us-west-1.aliyuncs.com',
+      endpoint: 'https://alb.cn-qingdao.aliyuncs.com',
       apiVersion: '2020-06-16',
     });
   }
