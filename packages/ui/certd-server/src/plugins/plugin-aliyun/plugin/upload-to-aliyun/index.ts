@@ -121,9 +121,13 @@ export class UploadCertToAliyun extends AbstractTaskPlugin {
 
       const logger = this.logger;
 
+      const newAccess = (await this.accessService.getById(
+        this.accessId
+      )) as AliyunAccess;
+
       const newClient = new Core({
-        accessKeyId: access.accessKeyId,
-        accessKeySecret: access.accessKeySecret,
+        accessKeyId: newAccess.accessKeyId,
+        accessKeySecret: newAccess.accessKeySecret,
         endpoint: 'https://alb.us-west-1.aliyuncs.com',
         apiVersion: '2020-06-16',
       });
