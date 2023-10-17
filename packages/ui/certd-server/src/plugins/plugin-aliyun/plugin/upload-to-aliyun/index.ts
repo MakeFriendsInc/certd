@@ -10,7 +10,7 @@ import Core from '@alicloud/pop-core';
 import { AliyunAccess } from '../../access';
 import { appendTimeSuffix, checkRet, ZoneOptions } from '../../utils';
 import { Logger } from 'log4js';
-import ListenerClass from './ListenerClass';
+// import ListenerClass from './ListenerClass';
 
 @IsTaskPlugin({
   name: 'uploadCertToAliyun',
